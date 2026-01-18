@@ -1,0 +1,17 @@
+import logging
+import os
+
+LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
+
+formatter = logging.Formatter(
+    fmt="%(asctime)s - [%(levelname)s] - %(name)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(formatter)
+
+logging.basicConfig(
+    level=getattr(logging, LOG_LEVEL),
+    handlers=[console_handler],
+)
