@@ -5,8 +5,8 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 
 from bot.config import settings
-from bot.databases.models import create_all_tables
 from bot.logger import logging
+from bot.repositories.db import create_all_tables
 from bot.routers import router as main_router
 
 
