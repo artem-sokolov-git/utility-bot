@@ -7,7 +7,6 @@ CYAN=\033[36m
 RESET=\033[0m
 
 up: ## Up bot container
-	@echo "$(YELLOW)Start bot container...$(RESET)"
 	@docker compose up -d --build
 	@echo "$(GREEN)Bot container is started$(RESET)"
 
@@ -23,9 +22,8 @@ clear: ## Clear volumes
 
 logs: ## Check logs
 	@echo "$(YELLOW)Open bot logs...$(RESET)"
-	@docker compose logs -f
+	@docker compose logs
 	@echo "$(GREEN)Bot logs is closed$(RESET)"
-
 
 soft-reset: ## Reset container without deleting volumes
 	@$(MAKE) down
@@ -35,9 +33,26 @@ hard-reset: ## Reset container with deleting volumes
 	@$(MAKE) clear
 	@$(MAKE) up
 
-## Optional
-check-logs: ## Claude check errors in logs
-	@docker compose logs | claude
+tests: ## Run tests
+	@echo "$(YELLOW)Up test database...$(RESET)"
+	@docker compose -f docker-compose.test.yml up -d
+	@echo "$(YELLOW)Sleep 3 sec...$(RESET)"
+	@sleep 3
+	@uv run pytest
+	@docker compose -f docker-compose.test.yml down
+
+format: ## Format code with ruff
+	@echo "$(YELLOW)Formatting code...$(RESET)"
+	@uv run ruff format .
+	@echo "$(GREEN)Code formatted$(RESET)"
+
+lint: ## Check code with ruff
+	@echo "$(YELLOW)Running ruff checks...$(RESET)"
+	@uv run ruff check --fix .
+	@echo "$(GREEN)Ruff checks passed$(RESET)"
+
+check: format lint ## Run all checks
+	@echo "$(GREEN)All checks passed$(RESET)"
 
 .DEFAULT_GOAL := help
 

@@ -1,6 +1,6 @@
 from bot.config import settings
 from bot.domain.entities import UserMeta
-from bot.repositories.user_repository import UserRepository
+from bot.repositories import UserRepository
 
 
 class AuthService:

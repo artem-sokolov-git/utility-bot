@@ -1,0 +1,19 @@
+name: utility-bot-test
+
+services:
+  postgres-test:
+    image: postgres:18.1-alpine3.23
+    container_name: postgres-test
+    environment:
+      POSTGRES_DB: test_db
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+    ports:
+      - "5433:5432"  # Другой порт чтобы не конфликтовать с основной БД
+    tmpfs:
+      - /var/lib/postgresql/data  # БД в памяти - быстрее работает
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test_user -d test_db"]
+      interval: 2s
+      timeout: 5s
+      retries: 5

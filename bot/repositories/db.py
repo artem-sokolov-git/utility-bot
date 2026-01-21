@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncEngine, async_sessionmaker, create_async_engine
 
 from bot.config import settings
-from bot.repositories.models.base_model import Base
+from bot.repositories.models import Base
 
 engine: AsyncEngine = create_async_engine(
     url=settings.postgres_asyncpg_url,

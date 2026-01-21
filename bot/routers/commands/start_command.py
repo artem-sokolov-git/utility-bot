@@ -23,12 +23,8 @@ async def cmd_start(message: Message) -> None:
         )
 
         if user.tg_id not in settings.all_allowed_users:
-            logging.info(
-                f"Бот отклонил запрос на вход пользователя {user.allow_name}:{user.tg_id}"
-            )
-            await message.answer(
-                "Извините это частный канал. Обратитесь к администратору чтобы получить разрешение."
-            )
+            logging.info(f"Бот отклонил запрос на вход пользователя {user.allow_name}:{user.tg_id}")
+            await message.answer("Извините это частный канал. Обратитесь к администратору чтобы получить разрешение.")
             return
 
         async with async_session() as session:
