@@ -17,7 +17,7 @@ class ReadingsService:
         if isinstance(instance, GasReadingModel):
             if not previous:
                 return {
-                    "date": instance.created_at,
+                    "date": instance.created_at.date(),
                     "real_consumption": instance.reading_value,
                     "fake_consumption": instance.fake_reading_value,
                     "real_previous": 0,
@@ -27,7 +27,7 @@ class ReadingsService:
                 }
 
             return {
-                "date": instance.created_at,
+                "date": instance.created_at.date(),
                 "real_consumption": instance.reading_value - previous.reading_value,
                 "fake_consumption": instance.fake_reading_value - previous.fake_reading_value,
                 "real_previous": previous.reading_value,
@@ -40,14 +40,14 @@ class ReadingsService:
         elif isinstance(instance, ElectricityReadingModel):
             if not previous:
                 return {
-                    "date": instance.created_at,
+                    "date": instance.created_at.date(),
                     "consumption": instance.reading_value,
                     "previous": 0,
                     "current": instance.reading_value,
                 }
 
             return {
-                "date": instance.created_at,
+                "date": instance.created_at.date(),
                 "consumption": instance.reading_value - previous.reading_value,
                 "previous": previous.reading_value,
                 "current": instance.reading_value,
