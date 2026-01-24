@@ -1,9 +1,11 @@
+import pytest
 import pytest_asyncio
 from pydantic_settings import SettingsConfigDict
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 from bot.config import Settings
 from bot.repositories.models import Base
+from bot.services.reminder_service import ReminderService
 
 
 class TestSettings(Settings):
@@ -38,3 +40,14 @@ async def db_session(test_engine) -> AsyncSession:  # type: ignore
     async with async_session() as session:
         yield session
         await session.rollback()
+
+@pytest.fixture
+def mock_bot(mocker):
+    bot = mocker.MagicMock()
+    bot.send_message = mocker.AsyncMock()
+    return bot
+
+
+@pytest.fixture
+def reminder_service(mock_bot):
+    return ReminderService(mock_bot)

@@ -14,6 +14,8 @@ class EnvBaseSettings(BaseSettings):
 
 class BotSettings(EnvBaseSettings):
     bot_token: SecretStr = Field(...)
+    chat_id: int = Field(...)
+    tz: str = Field(...)
     admin_id: int = Field(...)
     allowed_users: list[int] = Field(default_factory=list)
 

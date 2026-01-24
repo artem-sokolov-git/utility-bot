@@ -4,8 +4,8 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
 
-from bot.repositories.db import async_session
 from bot.repositories import ReadingsRepository
+from bot.repositories.db import async_session
 from bot.repositories.models import ElectricityReadingModel, GasReadingModel
 from bot.services import ReadingsService
 

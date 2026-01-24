@@ -8,6 +8,7 @@ from bot.config import settings
 from bot.logger import logging
 from bot.repositories.db import create_all_tables
 from bot.routers import router as main_router
+from bot.services import ReminderService
 
 
 async def main() -> None:
@@ -18,6 +19,9 @@ async def main() -> None:
     )
     dp = Dispatcher()
     dp.include_router(main_router)
+
+    reminder_service = ReminderService(bot)
+    await reminder_service.start()
 
     logging.info("Бот запущен")
     await dp.start_polling(bot)

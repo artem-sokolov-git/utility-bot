@@ -6,9 +6,9 @@ from aiogram.types import Message
 
 from bot.config import settings
 from bot.domain.entities import UserMeta
+from bot.repositories import UserRepository
 from bot.repositories.db import async_session
-from bot.repositories.user_repository import UserRepository
-from bot.services.auth_service import AuthService
+from bot.services import AuthService
 
 router = Router(name=__name__)
 
