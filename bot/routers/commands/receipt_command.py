@@ -13,7 +13,6 @@ router = Router(name=__name__)
 
 
 def _format_gas_receipt(payment_data: dict) -> str:
-    """Форматирует квитанцию по газу."""
     return dedent(f"""
         <b>Газ - {payment_data["date"]}</b>
         ---
@@ -28,7 +27,6 @@ def _format_gas_receipt(payment_data: dict) -> str:
 
 
 def _format_electricity_receipt(payment_data: dict) -> str:
-    """Форматирует квитанцию по электричеству."""
     return dedent(f"""
         <b>Электричество - {payment_data["date"]}</b>
         ---

@@ -1,8 +1,8 @@
 name: utility-bot
 services:
-  tg-service:
+  service:
     build: .
-    container_name: tg-service
+    container_name: service
     env_file:
       - .env
     depends_on:
@@ -25,13 +25,6 @@ services:
       timeout: 5s
       retries: 5
     restart: unless-stopped
-
-  adminer:
-    image: adminer:5.4.1
-    container_name: adminer
-    restart: always
-    ports:
-      - 8080:8080
 
 volumes:
   postgres-data:

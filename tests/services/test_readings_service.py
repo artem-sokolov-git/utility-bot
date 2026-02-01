@@ -246,7 +246,6 @@ async def test_get_statistics_gas_single_reading(db_session):
 
 @pytest.mark.asyncio
 async def test_get_statistics_gas_multiple_readings(db_session):
-    """Test gas statistics with multiple readings."""
     repo = ReadingsRepository(db_session)
     service = ReadingsService(repo)
 

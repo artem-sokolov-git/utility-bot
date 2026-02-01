@@ -35,11 +35,11 @@ hard-reset: ## Reset container with deleting volumes
 
 tests: ## Run tests
 	@echo "$(YELLOW)Up test database...$(RESET)"
-	@docker compose -f docker-compose.test.yml up -d
+	@docker compose -f tests/docker-compose.test.yml up -d
 	@echo "$(YELLOW)Sleep 3 sec...$(RESET)"
 	@sleep 3
 	@uv run pytest
-	@docker compose -f docker-compose.test.yml down
+	@docker compose -f tests/docker-compose.test.yml down
 
 format: ## Format code with ruff
 	@echo "$(YELLOW)Formatting code...$(RESET)"
@@ -51,7 +51,7 @@ lint: ## Check code with ruff
 	@uv run ruff check --fix .
 	@echo "$(GREEN)Ruff checks passed$(RESET)"
 
-check: format lint ## Run all checks
+check: format lint tests ## Run all checks and tests
 	@echo "$(GREEN)All checks passed$(RESET)"
 
 .DEFAULT_GOAL := help

@@ -9,7 +9,7 @@ from bot.services.reminder_service import ReminderService
 
 
 class TestSettings(Settings):
-    model_config = SettingsConfigDict(env_file=".env.test", env_file_encoding="utf-8", extra="ignore")
+    model_config = SettingsConfigDict(env_file="tests/.env.test", env_file_encoding="utf-8", extra="ignore")
 
 
 test_settings = TestSettings()
@@ -40,6 +40,7 @@ async def db_session(test_engine) -> AsyncSession:  # type: ignore
     async with async_session() as session:
         yield session
         await session.rollback()
+
 
 @pytest.fixture
 def mock_bot(mocker):
